@@ -1,12 +1,13 @@
 package com.loababa.api.auth.exception;
 
-import com.loababa.api.common.exception.LoababaException;
+import com.loababa.api.common.exception.ClientErrorInfo;
+import com.loababa.api.common.exception.LoababaBadGatewayException;
 import com.loababa.api.common.exception.ServerErrorInfo;
 
-public class ExternalCommunicationException extends LoababaException {
+public class ExternalCommunicationException extends LoababaBadGatewayException {
 
-    public ExternalCommunicationException(String clientMessage, ServerErrorInfo serverErrorInfo) {
-        super(clientMessage, serverErrorInfo);
+    public ExternalCommunicationException(ClientErrorInfo clientErrorInfo, ServerErrorInfo serverErrorInfo) {
+        super(clientErrorInfo, serverErrorInfo);
     }
 
 }

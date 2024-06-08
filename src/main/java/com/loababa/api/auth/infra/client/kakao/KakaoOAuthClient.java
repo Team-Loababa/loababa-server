@@ -13,6 +13,7 @@ import org.springframework.web.client.RestClient;
 
 import java.text.MessageFormat;
 
+import static com.loababa.api.auth.exception.AuthClientErrorInfo.KAKAO_COMMUNICATION_FAIL;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
@@ -22,7 +23,6 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VAL
 public class KakaoOAuthClient implements OAuthClient {
 
     private static final String BEARER_PREFIX = "Bearer ";
-    public static final String KAKAO_COMMUNICATION_EXCEPTION_MESSAGE = "카카오 서버 연결에 실패헀습니다.";
     public static final String COMMUNICATION_ERROR_SERVER_MESSAGE = """
             request header: {0}
             request body: {1}
@@ -51,7 +51,7 @@ public class KakaoOAuthClient implements OAuthClient {
 
         if (kakaoOAuthToken == null) {
             throw new ExternalCommunicationException(
-                    KAKAO_COMMUNICATION_EXCEPTION_MESSAGE,
+                    KAKAO_COMMUNICATION_FAIL,
                     new ServerErrorInfo(null, "카카오의 response body가 null 입니다.")
             );
         }
@@ -74,7 +74,7 @@ public class KakaoOAuthClient implements OAuthClient {
 
         if (kakaoOAuthAccessTokenInfo == null) {
             throw new ExternalCommunicationException(
-                    KAKAO_COMMUNICATION_EXCEPTION_MESSAGE,
+                    KAKAO_COMMUNICATION_FAIL,
                     new ServerErrorInfo(null, "카카오의 response body가 null 입니다.")
             );
         }
@@ -104,7 +104,7 @@ public class KakaoOAuthClient implements OAuthClient {
     private RestClient.ResponseSpec.ErrorHandler getErrorHandler(MultiValueMap<String, String> requestBody) {
         return (request, response) -> {
             throw new ExternalCommunicationException(
-                    KAKAO_COMMUNICATION_EXCEPTION_MESSAGE,
+                    KAKAO_COMMUNICATION_FAIL,
                     new ServerErrorInfo(
                             null,
                             MessageFormat.format(

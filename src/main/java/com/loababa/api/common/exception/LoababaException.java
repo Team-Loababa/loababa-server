@@ -1,15 +1,20 @@
 package com.loababa.api.common.exception;
 
-import lombok.Getter;
-
-@Getter
 public class LoababaException extends RuntimeException {
 
-    private final String clientErrorMessage;
+    private final ClientErrorInfo clientErrorInfo;
 
-    public LoababaException(String clientErrorMessage, ServerErrorInfo serverErrorInfo) {
+    public LoababaException(ClientErrorInfo clientErrorInfo, ServerErrorInfo serverErrorInfo) {
         super(serverErrorInfo.message(), serverErrorInfo.cause());
-        this.clientErrorMessage = clientErrorMessage;
+        this.clientErrorInfo = clientErrorInfo;
+    }
+
+    public String getClientCode() {
+        return clientErrorInfo.getCode();
+    }
+
+    public String getClientMessage() {
+        return clientErrorInfo.getMessage();
     }
 
 }

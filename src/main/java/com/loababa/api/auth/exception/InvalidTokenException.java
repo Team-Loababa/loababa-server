@@ -1,12 +1,13 @@
 package com.loababa.api.auth.exception;
 
-import com.loababa.api.common.exception.LoababaException;
+import com.loababa.api.common.exception.ClientErrorInfo;
+import com.loababa.api.common.exception.LoababaForbiddenException;
 import com.loababa.api.common.exception.ServerErrorInfo;
 
-public class InvalidTokenException extends LoababaException {
+public class InvalidTokenException extends LoababaForbiddenException {
 
-    public InvalidTokenException(String clientErrorMessage, ServerErrorInfo serverErrorInfo) {
-        super(clientErrorMessage, serverErrorInfo);
+    public InvalidTokenException(ClientErrorInfo clientErrorInfo, ServerErrorInfo serverErrorInfo) {
+        super(clientErrorInfo, serverErrorInfo);
     }
 
 }

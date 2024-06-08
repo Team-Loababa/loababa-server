@@ -2,21 +2,22 @@ package com.loababa.api.common.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ApiResponse<T>(
+        String code,
         String message,
-        @JsonInclude(JsonInclude.Include.NON_NULL)
         T data
 ) {
 
     public static ApiResponse<Void> success() {
-        return new ApiResponse<>("OK", null);
+        return success(null);
     }
 
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>("OK", data);
+        return new ApiResponse<>("OK", null, data);
     }
 
-    public static ApiResponse<Void> fail(String clientErrorMessage) {
-        return new ApiResponse<>(clientErrorMessage, null);
+    public static ApiResponse<Void> fail(String code, String message) {
+        return new ApiResponse<>(code, message, null);
     }
 }
